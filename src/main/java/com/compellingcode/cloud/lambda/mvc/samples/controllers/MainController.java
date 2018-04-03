@@ -6,6 +6,7 @@ import java.util.Map;
 import com.compellingcode.cloud.lambda.mvc.endpoint.Endpoint;
 import com.compellingcode.cloud.lambda.mvc.endpoint.EndpointParameter;
 import com.compellingcode.cloud.lambda.mvc.endpoint.ParameterType;
+import com.compellingcode.cloud.lambda.mvc.endpoint.RequestMethod;
 import com.compellingcode.cloud.lambda.mvc.view.ClasspathResourceLambdaResponse;
 import com.compellingcode.cloud.lambda.mvc.view.HtmlLambdaResponse;
 import com.compellingcode.cloud.lambda.mvc.view.JSONLambdaResponse;
@@ -13,7 +14,7 @@ import com.compellingcode.cloud.lambda.mvc.view.LambdaResponse;
 
 public class MainController {
 
-	@Endpoint({"/test", "/"})
+	@Endpoint(value={"/test", "/"}, method=RequestMethod.GET)
 	public LambdaResponse test() {
 		return new HtmlLambdaResponse("hello.tpl");
 	}
