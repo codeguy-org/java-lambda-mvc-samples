@@ -15,6 +15,7 @@ import com.compellingcode.cloud.lambda.mvc.endpoint.EndpointParameter;
 import com.compellingcode.cloud.lambda.mvc.endpoint.ParameterType;
 import com.compellingcode.cloud.lambda.mvc.endpoint.RequestMethod;
 import com.compellingcode.cloud.lambda.mvc.view.ClasspathResourceLambdaResponse;
+import com.compellingcode.cloud.lambda.mvc.view.DefaultErrorResponse;
 import com.compellingcode.cloud.lambda.mvc.view.HtmlLambdaResponse;
 import com.compellingcode.cloud.lambda.mvc.view.JSONLambdaResponse;
 import com.compellingcode.cloud.lambda.mvc.view.LambdaResponse;
@@ -61,12 +62,13 @@ public class MainController {
 					InputStream is = el.getFile().openInputStream();
 					int count = is.read(data);
 					String base64 = new String(Base64.getEncoder().encode(Arrays.copyOfRange(data, 0, count)));
+					
 					response.setVariable("image", base64);
 					response.setVariable("mime", el.getMimeType());
 				}
 			}
 		} catch(Exception ex) {
-			// todo: return an error template
+			return new DefaultErrorResponse(500);
 		}
 		
 		return response;
