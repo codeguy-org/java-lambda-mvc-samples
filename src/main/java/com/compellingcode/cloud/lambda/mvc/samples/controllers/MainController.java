@@ -19,16 +19,27 @@ import com.compellingcode.cloud.lambda.mvc.view.DefaultErrorResponse;
 import com.compellingcode.cloud.lambda.mvc.view.HtmlLambdaResponse;
 import com.compellingcode.cloud.lambda.mvc.view.JSONLambdaResponse;
 import com.compellingcode.cloud.lambda.mvc.view.LambdaResponse;
+import com.compellingcode.cloud.lambda.mvc.view.RedirectResponse;
 import com.compellingcode.utils.parser.form.multipart.domain.FormElement;
 
 public class MainController {
 	static final Logger logger = LogManager.getLogger(MainController.class);
-
+	
 	@Endpoint(value={"/test", "/"}, method=RequestMethod.GET)
 	public LambdaResponse test() {
 		return new HtmlLambdaResponse("hello.tpl");
 	}
 	
+	@Endpoint(value= {"/google"})
+	public LambdaResponse google() {
+		return new RedirectResponse("http://www.google.com", true);
+	}
+	
+	@Endpoint(value= {"/error/{errorNumber}"})
+	public LambdaResponse error(@EndpointParameter(type=ParameterType.PATH_PARAMETER, name="errorNumber") int error) {
+		return new DefaultErrorResponse(error);
+	}
+
 	@Endpoint({"/pathtest/{path+}"})
 	public LambdaResponse pathtest(@EndpointParameter(type=ParameterType.PATH_PARAMETER, name="path") String path) {
 		Map<String, Object> values = new HashMap<String, Object>();
