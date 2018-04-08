@@ -29,6 +29,13 @@ public class MainController {
 		return new HtmlLambdaResponse("hello.tpl");
 	}
 	
+	@Endpoint({"/pathtest/{path+}"})
+	public LambdaResponse pathtest(@EndpointParameter(type=ParameterType.PATH_PARAMETER, name="path") String path) {
+		Map<String, Object> values = new HashMap<String, Object>();
+		values.put("path", path);
+		return new JSONLambdaResponse(values);
+	}
+	
 	@Endpoint({"/getid/{id}"})
 	public LambdaResponse getId(@EndpointParameter(type=ParameterType.PATH_PARAMETER, name="id") int id,
 			                    @EndpointParameter(type=ParameterType.IP) String ip) {
