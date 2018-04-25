@@ -8,11 +8,7 @@
 			<br />
 			<input type="submit" />
 			<br /><br />
-			<#if image??>
-				<#if mime??>
-					<img src="data:${mime};base64, ${image}" />
-				</#if>
-			</#if>
+			<img th:if="${mime != null && image != null}" th:src="'data:' + ${mime} + ';base64, ' + ${image}" />
 		</form>
 	</body>
 </html>

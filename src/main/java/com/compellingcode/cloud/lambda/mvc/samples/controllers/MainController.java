@@ -16,7 +16,7 @@ import com.compellingcode.cloud.lambda.mvc.endpoint.ParameterType;
 import com.compellingcode.cloud.lambda.mvc.endpoint.RequestMethod;
 import com.compellingcode.cloud.lambda.mvc.view.ClasspathResourceLambdaResponse;
 import com.compellingcode.cloud.lambda.mvc.view.DefaultErrorResponse;
-import com.compellingcode.cloud.lambda.mvc.view.HtmlLambdaResponse;
+import com.compellingcode.cloud.lambda.mvc.view.ThymeleafLambdaResponse;
 import com.compellingcode.cloud.lambda.mvc.view.JSONLambdaResponse;
 import com.compellingcode.cloud.lambda.mvc.view.LambdaResponse;
 import com.compellingcode.cloud.lambda.mvc.view.RedirectResponse;
@@ -27,7 +27,7 @@ public class MainController {
 	
 	@Endpoint(value={"/test", "/"}, method=RequestMethod.GET)
 	public LambdaResponse test() {
-		return new HtmlLambdaResponse("hello.tpl");
+		return new ThymeleafLambdaResponse("hello");
 	}
 	
 	@Endpoint(value= {"/google"})
@@ -64,12 +64,12 @@ public class MainController {
 	
 	@Endpoint(value={"/postback"}, method=RequestMethod.GET)
 	public LambdaResponse getPostback(LambdaRequest request) {
-		return new HtmlLambdaResponse("postback.tpl");
+		return new ThymeleafLambdaResponse("postback");
 	}
 	
 	@Endpoint(value={"/postback"}, method=RequestMethod.POST)
 	public LambdaResponse postPostback(LambdaRequest request) {
-		HtmlLambdaResponse response = new HtmlLambdaResponse("postback.tpl");
+		ThymeleafLambdaResponse response = new ThymeleafLambdaResponse("postback");
 		
 		try {
 			Object o = request.getPostParameters().get("somefile");
